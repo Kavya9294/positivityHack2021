@@ -1,0 +1,2 @@
+FLASK_APP=news.py
+FLASK_ENV=development
