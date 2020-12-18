@@ -4,15 +4,16 @@ import requests
 from newsplease import NewsPlease
 import pymongo
 import requests
+from properties import *
 
 def get_scores(text):
-    response = requests.post("https://us-central1-trans-campus-298823.cloudfunctions.net/score",
+    response = requests.post(scores_url,
         headers={'Content-Type': 'application/json'},
         data=json.dumps({'text': text}))
     return response.json()
 
 def bulk_insert(data):
-    client = pymongo.MongoClient("mongodb+srv://hack2021:hack2021@newscluster.agzjw.mongodb.net/NewsData?retryWrites=true&w=majority")
+    client = pymongo.MongoClient(mongo_uri)
     client['NewsData']['NewsData'].insert_many(data)
 
 def request_handler(request):

@@ -1,7 +1,8 @@
 import pymongo
-from bson.json_util import dumps
+from bson.json_util import 
+from properties import *
 
-client = pymongo.MongoClient("mongodb+srv://hack2021:hack2021@newscluster.agzjw.mongodb.net/NewsData?retryWrites=true&w=majority")
+client = pymongo.MongoClient(mongo_uri)
 
 def hello_world(request):
     """Responds to any HTTP request.
