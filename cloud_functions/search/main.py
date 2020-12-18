@@ -1,56 +1,45 @@
-import time;
-import json
-import requests
-from newsplease import NewsPlease
+import pymongo
+from bson.json_util import dumps
 
-feedDict = []
+client = pymongo.MongoClient("mongodb+srv://hack2021:hack2021@newscluster.agzjw.mongodb.net/NewsData?retryWrites=true&w=majority")
 
-currTimeUnix = int(time.time())
-unix1Day = 86400 
-unixTime1DayAgo = currTimeUnix - unix1Day
-numTopicsRequested = 10
+def hello_world(request):
+    """Responds to any HTTP request.
+    Args:
+        request (flask.Request): HTTP request object.
+    Returns:
+        The response text or any set of values that can be turned into a
+        Response object using
+        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
+    """
+    request_json = request.get_json()
+    query = None
+    if request.args and 'query' in request.args:
+        query = request.args.get('query')
+    elif request_json and 'query' in request_json:
+        query = request_json['query']
 
-url = "https://bing-news-search1.p.rapidapi.com/news/trendingtopics"
+    if query:
+        # Requires the PyMongo package.
+        # https://api.mongodb.com/python/current
 
-sinceTimeUnix = str(unixTime1DayAgo)
-querystring = {"textFormat":"Raw","safeSearch":"Off","since":sinceTimeUnix,"count":numTopicsRequested}
-headers = {
-    'x-bingapis-sdk': "true",
-    'x-rapidapi-key': "55fcf9d423mshf8e158a5b045b42p1ca4e7jsn22ce0249fe51",
-    'x-rapidapi-host': "bing-news-search1.p.rapidapi.com"
-    }
-
-response = requests.request("GET", url, headers=headers, params=querystring)
-
-topTopicsDict = json.loads(response.text)
-for hotTopic in topTopicsDict['value']:
-    query = hotTopic['name']
-    numArticlesRequested = 3
-
-    url = "https://bing-news-search1.p.rapidapi.com/news/search"
-
-    querystring = {"q":query,"count":numArticlesRequested,"freshness":"Day","textFormat":"Raw","safeSearch":"Off"}
-
-    headers = {
-        'x-bingapis-sdk': "true",
-        'x-rapidapi-key': "55fcf9d423mshf8e158a5b045b42p1ca4e7jsn22ce0249fe51",
-        'x-rapidapi-host': "bing-news-search1.p.rapidapi.com"
-        }
-
-    response = requests.request("GET", url, headers=headers, params=querystring)
-
-    articlesDict = json.loads(response.text)
-
-    for article in articlesDict['value']:
-        articleUrl = article['url']
-        try:
-            article = NewsPlease.from_url(articleUrl, timeout=3)
-        except :
-            print('caught error when scraping url: ' + articleUrl + '. \ncontinuing...')
-            continue
-        tmpDict = {"title":article.title, "url":article.url, "text":article.maintext}
-        feedDict.append(tmpDict)
-
-print(feedDict[0])
-with open("feedDict_0.json", "w") as outfile:  
-    json.dump(feedDict[0], outfile)
+        result = client['NewsData']['NewsData'].aggregate([
+                                                            {
+                                                                '$search': {
+                                                                    'text': {
+                                                                        'query': query, 
+                                                                        'path': 'title'
+                                                                    }
+                                                                }
+                                                            }, {
+                                                                '$sort': {
+                                                                    '_id': -1
+                                                                }
+                                                            }, {
+                                                                '$limit': 50
+                                                            }
+                                                        ])
+    else:
+        result = client['NewsData']['NewsData'].find(limit=50).sort("_id", -1)
+    
+    return dumps(list(result)), 200, {'Content-Type': 'application/json'}
