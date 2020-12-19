@@ -10,6 +10,7 @@ import {Row,Container,Col,Image} from 'react-bootstrap';
 
 import Navibar from "./Navibar.js";
 import NewsComponent from "./NewsComponent.js";
+import NewsFeed from "./NewsFeed.js";
 
 // import { useState, useEffect } from 'react';
 
@@ -25,8 +26,8 @@ function App() {
   return (
     <div className="App">
         <Navibar></Navibar>
-        <NewsComponent title="December Holidays around the World" url="https://worldstrides.com/blog/2015/12/december-holidays-around-the-world/" sentiment="think" trust_score="20"></NewsComponent>
-      
+        {/* <NewsComponent title="December Holidays around the World" url="https://worldstrides.com/blog/2015/12/december-holidays-around-the-world/" sentiment="think" trust_score="20"></NewsComponent> */}
+        <NewsFeed></NewsFeed>
     </div>
   );
 }

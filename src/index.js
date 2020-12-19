@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+
 
 ReactDOM.render(
   <React.StrictMode>

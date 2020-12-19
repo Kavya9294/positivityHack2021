@@ -54,9 +54,98 @@
 }
 .set-width{
   width: 100%;
+  background-color: #e2eaf3 !important;
 }
 .set-opaciy{
   opacity: 0.3;
+}
+.filter-image{
+  height: 1.5em;
+  padding-left: 20px;
+}
+
+.togglers{
+  justify-content: flex-end;
+  
+}
+.link-style{
+  color: #000000ba;
+}
+
+.link-style:hover, .link-style:focus{
+  color: black;
+  text-decoration: none;
+}
+
+.toggle-button-smile{
+  background-image: url('./smileColor.svg');
+  height: 2em;
+  width: 2em;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: white !important;
+  border-color:  white !important;
+  margin-right:0.5em;
+}
+.toggle-button-think{
+  background-image: url('./thinkingColor.svg');
+  height: 2em;
+  width: 2em;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: white !important;
+  border-color:  white !important;
+  margin-right:0.5em;
+}
+.toggle-button-sad{
+  background-image: url('./sadColor.svg');
+  height: 2em;
+  width: 2em;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: white !important;
+  border-color:  white !important;
+  margin-right:0.5em;
+}
+
+.toggle-button-sad:hover, .toggle-button-smile:hover, .toggle-button-think:hover{
+  background-color: white !important;
+  border-color:  white !important;
+}
+
+.margin-setter{
+  margin-bottom:1em
+}
+.set-margin{
+  background-color: #cccccc1f;
+  border: none !important;
+  border-radius: none !important;
+}
+
+.hr-class{
+  margin: 0 1% 0 1%;
+  width: 98%;
+  color: white;
+  border-top: 1px solid #dedada61;
+  border-radius: 3px;
+}
+
+/* .adding-hoover:hover{
+  background-color: #eee;
+} */
+
+.newsfeed-decor{
+  border: 1px solid #dedada61;
+  border-radius: 5px;
 }
 
 @keyframes App-logo-spin {

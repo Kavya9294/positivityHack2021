@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import {Row,Container,Col,ProgressBar, Card, Image} from 'react-bootstrap';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,11 +45,11 @@ class NewsComponent extends React.Component {
 
     return(
     <Container>
-        <Card >
-            <Card.Body>
+        <Card className="set-margin" >
+            <Card.Body className="adding-hoover">
                 <Card.Title className="news-header">
                     <Row>
-                    <Col xs={10} md={10}><a href={this.state.url}>{this.state.title}</a></Col>
+                    <Col xs={10} md={10}><a className="link-style" href={this.state.url}>{this.state.title}</a></Col>
                     <Col>
                     <Row style={{paddingBottom: "0.5em"}}>
                         <ProgressBar now={this.state.trust_score} label={`${this.state.trust_score}%`} className="set-width" variant={colorClass} ></ProgressBar>
@@ -65,6 +64,7 @@ class NewsComponent extends React.Component {
                     </Card.Title>
             </Card.Body>
         </Card>
+        <hr className="hr-class"></hr>
     </Container>
 
     );
